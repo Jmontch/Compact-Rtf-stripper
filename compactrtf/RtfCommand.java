@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  *
- * @author Jean de Montcheuil
+ * @author Jmontch
  * 
  * This class allows interpreting commands found in Rtf source
  * Commands are classed in six types :
