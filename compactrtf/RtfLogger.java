@@ -20,7 +20,7 @@ import java.util.logging.Level;
 
 /**
  *
- * @author Jean de Montcheuil
+ * @author Jmontch
  * 
  * This class is limited to furnish debug helps.
  * Calling functions log, info,warning or error simply write a message to Output
