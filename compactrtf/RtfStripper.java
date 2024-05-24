@@ -29,7 +29,7 @@ import java.util.Deque;
 
 /**
  * 
- * @author Jean de Montcheuil
+ * @author Jmontch
  * 
  * This class is a part of a compactRtf library to extract text from a Rtf file content.
  * The library contains this class, the RtfCommand class which contains Rtf commands,
