@@ -10,20 +10,20 @@ The philosophy is to try to extract text as long as possible without raising exc
 
 # 1 - Library content
 Library contains 2 classes and an optional class :
-- RtfStripper class furnishes extracting functions,
-- RtfCommand class contains Rtf commands,
-- optional RtfLogger class is only for debug helps.
+- _RtfStripper_ class furnishes extracting functions,
+- _RtfCommand_ class contains Rtf commands,
+- optional _RtfLogger_ class is only for debug helps.
 
 # 2 – Using library
-To use this library, add to your application a package with the two classes RtfStripper and RtfCommand.
-If you have no need of debug helps, simply delete three lines at the end of RtfStripper class.
-Else add the RtfLogger class. The furnished code simply write warning messages to output. You can modify this class to change messages level, or call Java standard logger, or your application debug system.
+To use this library, add to your application a package with the two classes _RtfStripper_ and _RtfCommand_.
+If you have no need of debug helps, simply delete three lines at the end of _RtfStripper_ class.
+Else add the _RtfLogger class_. The furnished code simply write warning messages to output. You can modify this class to change messages level, or call Java standard logger, or your application debug system.
 
 To use library in your application, you have two options :
-- for file of limited size, read the file in a Java String then call RtfStripper static function stripLimitedSource, it return a Java String with extracted text, and static function getLastReturnCode allow to access to the return code,
-- for larger files, define a Java Reader to read the file, and a Java Writer to write extracted text character by character, create a RtfStripper object and call its stripSource function, it returns with a code when all text is extracted.
+- for file of limited size, read the file in a Java String then call _RtfStripper_ static function _stripLimitedSource_, it returns a Java String with extracted text, and static function _getLastReturnCode_ allow to access to the return code,
+- for larger files, create a _RtfStripper_ object, a java _Reader_ to read the file, and a java _Writer_ to write text extracted, and call _RtfStripper_ _stripSource_ function, it returns with a code when all text is extracted.
 
-You can see some example of use in the main class furnished with the library.
+You can see some example of use in the main _Rtf_ class furnished with the library.
 
 # 3 – About character sets
 Rtf source uses only ASCII characters. When encountering not ASCII characters, Rtf generators replace them by hexadecimal command followed with 2 hexadecimal digits, or Unicode command followed by code in decimal. So, when as usual, file is coded with an ASCII extension 8 bits character set, there is no problem to convert it in Java String.
@@ -44,11 +44,11 @@ So I have based my project on their algorithms, and I have rewritten code in ord
 
 # 5 – Classes presentation
 ## 5.1 - Class RtfStripper
-This class is a part of a compactRtf library to extract text from a Rtf file content. The library contains this class, the RtfCommand class which contains Rtf commands, and optional RtfLogger class which is only for debug helps.
+This class is a part of a compactRtf library to extract text from a Rtf file content. The library contains this class, the _RtfCommand_ class which contains Rtf commands, and optional _RtfLogger_ class which is only for debug helps.
 
-This class parses  Rtf source, interprets commands,and write extracted text.The main function is stripSource, which has as parameters a Java Reader to read source, and a Java Writer to write extracted text character by character. It checks if the first characters are the first characters of a Rtf file "{\rtf", and if no, the return is code NO_RTF.
+This class parses  Rtf source, interprets commands,and write extracted text. The main function is _stripSource_, which has as parameters a Java _Reader_ to read source, and a Java _Writer_ to write extracted text character by character. It checks if the first characters are the first characters of a Rtf file "{\rtf", and if no, the return is code NO_RTF.
 
-For file of limited size, already in memory or being read in a single bloc, static function stripLimitedSource with source in String as parameter,  does stripSource calling and returns extracted text. More, static function getLastReturnCode furnishes the return code of the last call to stripLimitedSource. 
+For file of limited size, already in memory or being read in a single bloc, static function _stripLimitedSource_ with source in String as parameter,  does _stripSource_ calling and returns extracted text. More, static function _getLastReturnCode_ furnishes the return code of the last call to _stripLimitedSource_. 
 
 In addition some utility function are made public (Rtf start sequence check, last EOL delete).
 
@@ -58,22 +58,22 @@ These class allows interpreting commands found in Rtf source.
 
 Commands are classed in six types :
 - INSERTION command to insert a specified character in out text,
-- UNICODE command to insert a character whose Unicode code follows the command,
+- UNICODE command to insert a character whose unicode code follows the command,
 - TEXT_DESTINATION indicating that text after this command is to insert in out text,
 - NO_TEXT_DESTINATION indicating that text which follows is not to insert,
 - CHARSET defining a standard character set, with selection from 1 to 4,
 - CHARSET_FROM define a character set with name "Cpxxxx", where xxxx is a number that follows the command.
 
-The class construct a Map (command text, code) for all commands. Code is the character to insert, Unicode code for UNICODE command, and a special code (>10000 hexa) indicating type for other.
+The class construct a Map (command text, code) for all commands. Code is the character to insert, unicode code for UNICODE command, and a special code (>10000 hexa) indicating type for other.
 
-For destination commands, all known commands are retained. For insertion and Unicode commands, only them that have action on out text are retained.
+For DESTINATION commands, all known commands are retained. For INSERTION and UNICODE commands, only them that have action on out text are retained.
 ## 5.3 - Class RtfLogger
 This class is limited to furnish debug helps.
 
-Calling functions log, info, warning or error simply write a message to Output.
+Calling functions _log_, _info_, _warning_ or _error_ simply write a message to output.
 
-Other functions allow to specify a minimum level (levels of java class Level) to effectively write.
+Other functions allow to specify a minimum level (levels of java class _Level_) to effectively write.
 
-If you do not need debug help, you can suppress the calls to this class in RtfStripper and delete this class.
+If you do not need debug help, you can suppress the calls to this class at the end of _RtfStripper_ class and delete this class.
 
 When integrating CompactRtfStripper in application you can modify this class to do calls to application (or standard java) debug.
